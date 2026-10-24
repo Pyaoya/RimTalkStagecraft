@@ -15,7 +15,7 @@ namespace RimTalkStagecraft
     // Nothing is written into saves, so the mod can be added or taken out at any time.
     public class StagecraftMod : Mod
     {
-        internal const string Id = "pyaoya.rimtalkstagecraft";
+        internal const string Id = "pyaoyao.rimtalkstagecraft";
         internal const string Tag = "[RimTalk Stagecraft] ";
         internal static Settings Settings;
         internal static Harmony Patcher;

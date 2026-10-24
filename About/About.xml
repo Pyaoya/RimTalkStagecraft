@@ -2,7 +2,7 @@
 <ModMetaData>
 	<name>RimTalk - Stagecraft</name>
 	<author>pyaoyao</author>
-	<packageId>pyaoya.rimtalkstagecraft</packageId>
+	<packageId>pyaoyao.rimtalkstagecraft</packageId>
 	<modVersion>0.1.0</modVersion>
 	<supportedVersions>
 		<li>1.6</li>

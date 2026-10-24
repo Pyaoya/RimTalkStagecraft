@@ -15,6 +15,7 @@ Build/Stagecraft17.csproj  1.7 的编译工程（.NET 10）
 Build/sync_text.py       把 游戏内文本.md 写进中文语言文件、About.xml、创意工坊简介
 Build/About_en.txt       About 里英文那一段
 Build/创意工坊简介.txt   上传时贴进创意工坊页面（脚本生成）
+Build/Workshop_en.txt    创意工坊页面的英文版（手写，中文改了意思要跟着改）
 Build/cover.py           画封面 About/Preview.png（RimTalk 系列的配色和原版像素小人，加一对幕布）
 游戏内文本.md            所有中文文字的源头，以它为准
 build.ps1                同步文字 → 编 1.6 → 编 1.7 → 装进两个游戏的 Mods 文件夹

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
 	<name>RimTalk - Stagecraft</name>
-	<author>Pyaoya</author>
+	<author>pyaoyao</author>
 	<packageId>pyaoya.rimtalkstagecraft</packageId>
 	<modVersion>0.1.0</modVersion>
 	<supportedVersions>

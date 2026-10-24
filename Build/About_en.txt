@@ -1,12 +1,9 @@
-An add-on for RimTalk: pawns know where they are and who the job in their hands is aimed at, conditions that last for days and newly taken quests get talked about, and you can set up a conversation with director's notes.
+An add-on for RimTalk: pawns know where they are and who their job is aimed at, lasting conditions and new quests get talked about, and director's notes set up a conversation.
 
-- Location: every time a line is generated, the model can be told what this map is: your colony, another faction's settlement (and whether they are hostile), a quest site, a cave beneath, and the region on the world map.
-- Who the job is aimed at: "Tending to Mira" becomes "Tending to Mira (colonist)"; also prisoner, guest, (animal, dog), mechanoid. No more colonists chattering about dropping food on the floor for a sick colonist as if they were feeding an animal.
-- Lasting conditions: a cold snap, an eclipse or toxic fallout that lasts for days is brought up a few more times while it lasts, and the letter's own chance is made up for if nobody took it.
-- Quests: the moment you accept a quest, an awake colonist talks it over.
-- Director's notes: write //Amy and Bob argue about dinner// in RimTalk's "talk to" window. Nobody says it aloud; the model writes a conversation from it.
-- "Make speak" button: guests, traders and prisoners you cannot control can be made to talk to someone, as you ask.
-- (Integration) World description for RimTalk - Expand Literature: add your game's setting to the prompts it writes books and journals from.
+- Location: tells the model what this place is; you can write your own
+- Job targets tagged: (colonist), (prisoner), (animal)
+- Lasting conditions and accepted quests talked about
+- Director's notes //...// and a "Make speak" button
+- (Integration) world description for RimTalk - Expand Literature
 
-Every part can be turned off on its own in the mod settings. Pure logic: does not alter saves, and can be added or removed mid-game.
-Requires Harmony and RimTalk; load after RimTalk. Supports 1.6 and 1.7.
+Each part can be switched off in the settings. Does not alter saves. Requires Harmony and RimTalk; 1.6 and 1.7.

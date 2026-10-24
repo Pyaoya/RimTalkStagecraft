@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<!-- ===== Settings ===== -->
+	<Stagecraft_SettingsCategory>RimTalk - Stagecraft</Stagecraft_SettingsCategory>
+	<Stagecraft_SetPlace>Tell pawns where they are</Stagecraft_SetPlace>
+	<Stagecraft_SetPlaceTip>Adds a "Location" line to the environment part of every RimTalk prompt: your own colony, another faction's settlement (and whether they are hostile), a quest site (and for which quest), a cave or other map inside a map (and where it is entered from), and the region and landmark on the world map. Shown only while RimTalk's weather context is on. To write this line yourself, select a place on the world map and press "Location description", or use the button below while in a game.</Stagecraft_SetPlaceTip>
+	<Stagecraft_SetPlaceEdit>Describe the current map's location</Stagecraft_SetPlaceEdit>
+	<Stagecraft_SetTargets>Say who the people a job is aimed at are</Stagecraft_SetTargets>
+	<Stagecraft_SetTargetsTip>"Tending to Mira" or "Delivering food to Bob" gives only a name, and when that pawn is not nearby the model has to guess who it is. With this on, the name is followed by what they are to the colony: (colonist), (prisoner), (guest), (animal, dog), (mechanoid) and so on. When RimTalk's context optimization is off, RimTalk writes this itself at more length and nothing is added here.</Stagecraft_SetTargetsTip>
+	<Stagecraft_SetConditions>Bring up lasting conditions again while they last</Stagecraft_SetConditions>
+	<Stagecraft_SetConditionsTip>RimTalk gives a letter one chance to be talked about, in the two hours after it arrives, and then forgets it. A cold snap, an eclipse or toxic fallout that lasts for days is brought up a few more times while it lasts, and the letter's own chance is made up for if nobody took it. Only when someone is awake and there are no enemies on the map.</Stagecraft_SetConditionsTip>
+	<Stagecraft_SetConditionTalks>At most {0} talks per condition (the letter's included, about one every day and a half)</Stagecraft_SetConditionTalks>
+	<Stagecraft_SetConditionSkip>Conditions never to bring up again:</Stagecraft_SetConditionSkip>
+	<Stagecraft_SetConditionSkipTip>Their def names (such as ColdSnap, Aurora), separated by commas or spaces.</Stagecraft_SetConditionSkipTip>
+	<Stagecraft_SetConditionLines>List current conditions in the environment</Stagecraft_SetConditionLines>
+	<Stagecraft_SetConditionLinesTip>Lists the conditions in the environment part of every prompt. Pawns then mention them in passing very often (one condition came up seven times in two and a half days in testing), so this is off by default.</Stagecraft_SetConditionLinesTip>
+	<Stagecraft_SetQuestTalk>Talk a quest over as soon as it is accepted</Stagecraft_SetQuestTalk>
+	<Stagecraft_SetQuestTalkTip>When you accept a quest, an awake colonist is found at once to talk over the plan, who goes and what to bring. If nobody can take it, it keeps trying for half a day.</Stagecraft_SetQuestTalkTip>
+	<Stagecraft_SetNotes>Director's notes: //...//</Stagecraft_SetNotes>
+	<Stagecraft_SetNotesTip>In RimTalk's "talk to" window, text between two pairs of slashes is not said aloud by anyone: the model writes the whole conversation it describes, with the chosen pawn speaking first, for example //Amy and Bob argue about dinner, Bob gives in//. Turned off, such text is spoken as a line, the way RimTalk does it.</Stagecraft_SetNotesTip>
+	<Stagecraft_SetSpeak>"Make speak" button</Stagecraft_SetSpeak>
+	<Stagecraft_SetSpeakTip>Guests, traders and prisoners, who you cannot give orders to, get a button: pick someone for them to talk to, then let the AI write it or write their line or a director's note yourself. They must first be allowed to talk in RimTalk's settings.</Stagecraft_SetSpeakTip>
+	<Stagecraft_SetLiterature>World description for RimTalk Literature:</Stagecraft_SetLiterature>
+	<Stagecraft_SetLiteratureTip>When RimTalk Literature has the AI write books, journals or art descriptions, this text is added to the end of its prompts. Its prompts say nothing about the setting, and in a medieval game it wrote a diary full of patrol robots and satellite stations. A few lines about your game's era, what exists and what does not, are enough; left empty, nothing is added. Of no use without RimTalk Literature.</Stagecraft_SetLiteratureTip>
+
+	<!-- ===== Who the people a job is aimed at are (Source/Targets.cs) =====
+	     Format's {0} is one of the others; the whole goes right after the name. Animal's {0} is the kind of
+	     animal; an animal with no name is already called by its kind, and gets nothing. -->
+	<Stagecraft_TagFormat> ({0})</Stagecraft_TagFormat>
+	<Stagecraft_TagColonist>colonist</Stagecraft_TagColonist>
+	<Stagecraft_TagSlave>slave</Stagecraft_TagSlave>
+	<Stagecraft_TagPrisoner>prisoner</Stagecraft_TagPrisoner>
+	<Stagecraft_TagGuest>guest</Stagecraft_TagGuest>
+	<Stagecraft_TagEnemy>enemy</Stagecraft_TagEnemy>
+	<Stagecraft_TagStranger>wanderer</Stagecraft_TagStranger>
+	<Stagecraft_TagAnimal>animal, {0}</Stagecraft_TagAnimal>
+	<Stagecraft_TagMech>mechanoid</Stagecraft_TagMech>
+	<Stagecraft_TagInsect>insectoid</Stagecraft_TagInsect>
+	<Stagecraft_TagEntity>entity</Stagecraft_TagEntity>
+
+	<!-- ===== Lasting conditions (Source/News.cs) =====
+	     The topic given to RimTalk: {0} the condition's name, {1} its description, {2} how long ago it began. -->
+	<Stagecraft_ConditionTalk>(Bring up the {0} that began {2}: what each of you makes of it, worries or plans. Do not just repeat the description.)\n[{1}]</Stagecraft_ConditionTalk>
+	<Stagecraft_AgoHours>{0} hour(s) ago</Stagecraft_AgoHours>
+	<Stagecraft_AgoDays>{0} day(s) ago</Stagecraft_AgoDays>
+	<Stagecraft_ConditionLine>Current condition (mention only in passing): {0}. {1}</Stagecraft_ConditionLine>
+	<Stagecraft_QuestAccepted>(Just taken on: {0}. Talk over the plan, who goes, what to prepare or any worries. Do not just read it out.)\n[{1}]</Stagecraft_QuestAccepted>
+
+	<!-- ===== Location (Source/Place.cs) ===== -->
+	<Stagecraft_Place>Location: {0}</Stagecraft_Place>
+	<Stagecraft_PlaceHome>{0}, {1}'s colony and the colonists' home</Stagecraft_PlaceHome>
+	<Stagecraft_PlaceHomeSubjects>; the people here from {0} are {1}'s own subjects, not strangers</Stagecraft_PlaceHomeSubjects>
+	<Stagecraft_PlaceSubject>{0}, a settlement of {1}, under {2}</Stagecraft_PlaceSubject>
+	<Stagecraft_PlaceOwn>{0}, {1}'s {2}</Stagecraft_PlaceOwn>
+	<Stagecraft_PlaceSettlement>{0}, a settlement of {1}, {2}</Stagecraft_PlaceSettlement>
+	<Stagecraft_PlaceStanceHostile>hostile to {0}</Stagecraft_PlaceStanceHostile>
+	<Stagecraft_PlaceStanceNeutral>not hostile to {0}</Stagecraft_PlaceStanceNeutral>
+	<Stagecraft_PlaceStanceAlly>allied with {0}</Stagecraft_PlaceStanceAlly>
+	<Stagecraft_PlaceKind> ({0})</Stagecraft_PlaceKind>
+	<Stagecraft_PlaceHeldBy>, held by {0}, {1}</Stagecraft_PlaceHeldBy>
+	<Stagecraft_PlaceQuest>, the place the quest "{0}" leads to</Stagecraft_PlaceQuest>
+	<Stagecraft_PlaceQuestSameName>, come to for a quest</Stagecraft_PlaceQuestSameName>
+	<Stagecraft_PlacePocket>{0}, entered from {1}</Stagecraft_PlacePocket>
+	<Stagecraft_PlaceFeature>; in {0}</Stagecraft_PlaceFeature>
+	<Stagecraft_PlaceLandmark>; landmark: {0}</Stagecraft_PlaceLandmark>
+
+	<!-- ===== Director's notes (Source/Director.cs) =====
+	     {0} the note, {1} who speaks first, {2} the other. -->
+	<Stagecraft_Direct>(Director's note, not something anyone says aloud: {0}. Write the conversation the note describes, with {1} speaking first; everyone the note names speaks and reacts as it says. Do not answer the note or repeat it.)</Stagecraft_Direct>
+	<Stagecraft_DirectTo>(Director's note, not something anyone says aloud: {1} turns to {2}. {0}. Write their conversation as the note describes, with {1} speaking first. Do not answer the note or repeat it.)</Stagecraft_DirectTo>
+	<Stagecraft_DirectDropped>{0} never got to speak; the director's note was dropped.</Stagecraft_DirectDropped>
+
+	<!-- ===== Location description (Source/PlaceNotes.cs): a button on places selected on the world map ===== -->
+	<Stagecraft_PlaceEdit>Location description</Stagecraft_PlaceEdit>
+	<Stagecraft_PlaceEditDesc>Write what kind of place this is and whose. RimTalk's "Location: ..." line uses your words; left empty, the generated one is used.</Stagecraft_PlaceEditDesc>
+	<Stagecraft_PlaceEditTitle>Location description: {0}</Stagecraft_PlaceEditTitle>
+	<Stagecraft_PlaceEditNote>Every RimTalk prompt tells the model "Location: ...". Write below what kind of place this is and whose, and the model goes by it. Clear it or press "Use generated" to go back to the generated line.</Stagecraft_PlaceEditNote>
+	<Stagecraft_PlaceEditAuto>Generated: {0}</Stagecraft_PlaceEditAuto>
+	<Stagecraft_PlaceEditNoMap>(not visited yet; it is generated once you are there)</Stagecraft_PlaceEditNoMap>
+	<Stagecraft_PlaceEditSave>Save</Stagecraft_PlaceEditSave>
+	<Stagecraft_PlaceEditReset>Use generated</Stagecraft_PlaceEditReset>
+
+	<Stagecraft_SpeakLabel>Make speak</Stagecraft_SpeakLabel>
+	<Stagecraft_SpeakDesc>Have {0} start talking to someone you pick. Let the AI write it, or write {0}'s line or a //director's note// yourself.</Stagecraft_SpeakDesc>
+	<Stagecraft_SpeakFree>Pick someone for {0} to talk to (AI writes it)</Stagecraft_SpeakFree>
+	<Stagecraft_SpeakWrite>Pick someone, then write {0}'s line or a //director's note//</Stagecraft_SpeakWrite>
+	<Stagecraft_SpeakQueued>{0} will go and talk to {1}.</Stagecraft_SpeakQueued>
+	<Stagecraft_SpeakFreeNote>Find something to talk about from the situation and how the two get along</Stagecraft_SpeakFreeNote>
+
+</LanguageData>

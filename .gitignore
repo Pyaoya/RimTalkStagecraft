@@ -1,0 +1,9 @@
+# Build output: build.ps1 makes these again.
+1.6/Assemblies/
+1.7/Assemblies/
+Build/obj/
+Build/bin/
+*.pdb
+
+# Notes for the assistant, kept on this machine only.
+CLAUDE.md

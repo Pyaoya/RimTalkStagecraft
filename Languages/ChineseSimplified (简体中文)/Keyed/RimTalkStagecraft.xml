@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 由 Build/sync_text.py 从 游戏内文本.md 生成，不要直接改这里，改那份文件。 -->
+<LanguageData>
+
+	<!-- ===== 三、设置页 ===== -->
+	<Stagecraft_SettingsCategory>RimTalk - Stagecraft</Stagecraft_SettingsCategory>
+	<Stagecraft_SetPlace>告诉小人身在何处</Stagecraft_SetPlace>
+	<Stagecraft_SetPlaceTip>每次对话的环境信息里加一行“所在地”：自家殖民地、别家的定居点（带敌友关系）、任务地点（是哪个任务）、地下这类小地图（入口在哪），以及世界地图上的地名和地标。要 RimTalk 的天气信息开着才显示。在世界地图上选中一个地方点“所在地描述”，或者在游戏里点下面那个按钮，可以自己写这一行。</Stagecraft_SetPlaceTip>
+	<!-- 设置页里的按钮，只在游戏里、打开了本 mod 设置时出现。 -->
+	<Stagecraft_SetPlaceEdit>改当前地图的所在地描述</Stagecraft_SetPlaceEdit>
+	<Stagecraft_SetTargets>行动对象后面标出身份</Stagecraft_SetTargets>
+	<Stagecraft_SetTargetsTip>“正在治疗某某”“正在给某某送饭”里只有名字，那人不在旁边时模型只能瞎猜。打开后名字后面会标出（殖民者）（囚犯）（访客）（动物，狗）（机械体）这类身份。RimTalk 的“上下文优化”关着时它自己会写得更详细，这一项就不再加。</Stagecraft_SetTargetsTip>
+	<Stagecraft_SetConditions>持续几天的状况期间再聊几次</Stagecraft_SetConditions>
+	<Stagecraft_SetConditionsTip>RimTalk 只在来信后的两个钟头里给一次聊的机会，之后就忘了。寒流、日蚀、毒尘这类持续好几天的状况，期间会再被提起几次；来信那次没人接的话也会补上。只在有人醒着、地图上没有敌人时提起。</Stagecraft_SetConditionsTip>
+	<!-- 滑条上方的字。{0} 是次数。 -->
+	<Stagecraft_SetConditionTalks>每条状况最多聊 {0} 次（含来信那次，大约一天半一次）</Stagecraft_SetConditionTalks>
+	<Stagecraft_SetConditionSkip>不要补聊的状况：</Stagecraft_SetConditionSkip>
+	<Stagecraft_SetConditionSkipTip>填状况的定义名（比如 ColdSnap、Aurora），几个之间用逗号或空格隔开。</Stagecraft_SetConditionSkipTip>
+	<Stagecraft_SetConditionLines>在环境信息里列出眼下的状况</Stagecraft_SetConditionLines>
+	<Stagecraft_SetConditionLinesTip>打开后每次对话的环境信息里都会列出这些状况，小人闲聊时常常顺口带到，实测一条状况两天半里被提了七次，所以默认关着。</Stagecraft_SetConditionLinesTip>
+	<Stagecraft_SetQuestTalk>接下任务时让小人马上聊一次</Stagecraft_SetQuestTalk>
+	<Stagecraft_SetQuestTalkTip>你在任务栏接下任务的那一刻，找一个醒着的殖民者聊聊打算、谁去、要备些什么。没人接得上就一直等，最多等半天。</Stagecraft_SetQuestTalkTip>
+	<Stagecraft_SetNotes>导演指示：//……//</Stagecraft_SetNotes>
+	<Stagecraft_SetNotesTip>在 RimTalk 的“对某人说话”窗口里，写在两对斜杠中间的字不会被谁念出来，模型照它写出整段对话，由发起人先开口，比如 //艾米和鲍勃争论晚饭吃什么，最后鲍勃让步//。关掉后这类字照 RimTalk 原来的做法当台词说出来。</Stagecraft_SetNotesTip>
+	<Stagecraft_SetSpeak>“让其开口”按钮</Stagecraft_SetSpeak>
+	<Stagecraft_SetSpeakTip>选中访客、商人、囚犯这些不归你指挥的人，命令栏里多一个按钮：选一个人让他去搭话，可以交给 AI 写，也可以自己写台词或导演指示。要先在 RimTalk 的设置里允许说话。</Stagecraft_SetSpeakTip>
+	<Stagecraft_SetLiterature>RimTalk 文学扩展的世界说明：</Stagecraft_SetLiterature>
+	<Stagecraft_SetLiteratureTip>RimTalk 文学扩展让 AI 写书、日记、艺术品说明时，这段字会接在它的提示词后面。它的提示词不提世界观，在中世纪的档里写出过满篇机器人和卫星站的日记。写几句你这个档的时代、有什么、没有什么就行；留空就什么也不加。没装文学扩展时这一项没用。</Stagecraft_SetLiteratureTip>
+
+	<!-- ===== 四、按钮和提示消息 ===== -->
+	<Stagecraft_PlaceEdit>所在地描述</Stagecraft_PlaceEdit>
+	<Stagecraft_PlaceEditDesc>自己写这个地方是什么样的地方、是谁的。RimTalk 每次对话说“所在地：……”时就用你写的；留空就用自动生成的。</Stagecraft_PlaceEditDesc>
+	<!-- 窗口标题。{0} 是地名。 -->
+	<Stagecraft_PlaceEditTitle>{0}的所在地描述</Stagecraft_PlaceEditTitle>
+	<!-- 窗口里的说明。 -->
+	<Stagecraft_PlaceEditNote>RimTalk 每次对话都会告诉模型“所在地：……”。在下面写这个地方是什么样的地方、是谁的，模型会照这个说。清空或点“恢复自动”，就回到自动生成的那句。</Stagecraft_PlaceEditNote>
+	<!-- 灰色小字，给你参考。{0} 是自动生成的那句。 -->
+	<Stagecraft_PlaceEditAuto>自动生成的：{0}</Stagecraft_PlaceEditAuto>
+	<!-- 还没去过、没有地图的地方，生成不出那句话时显示这个。 -->
+	<Stagecraft_PlaceEditNoMap>（还没去过这里，到了以后才生成）</Stagecraft_PlaceEditNoMap>
+	<Stagecraft_PlaceEditSave>保存</Stagecraft_PlaceEditSave>
+	<!-- “让其开口”按钮：选中一个不归你指挥的人（访客、商人、囚犯）时出现在命令栏。{0} 都是被选中的那个人。 -->
+	<Stagecraft_PlaceEditReset>恢复自动</Stagecraft_PlaceEditReset>
+	<Stagecraft_SpeakLabel>让其开口</Stagecraft_SpeakLabel>
+	<Stagecraft_SpeakDesc>让{0}主动对你选的人说话。可以交给 AI 来写，也可以自己替{0}写一句台词，或者写一条 //导演指示//。</Stagecraft_SpeakDesc>
+	<!-- 点开按钮后的第一个选项 -->
+	<Stagecraft_SpeakFree>选一个人，让{0}主动搭话（AI 来写）</Stagecraft_SpeakFree>
+	<!-- 第二个选项 -->
+	<Stagecraft_SpeakWrite>选一个人，替{0}写台词或 //导演指示//</Stagecraft_SpeakWrite>
+	<!-- 屏幕左上角的提示。{0} 去说话的人，{1} 对方。 -->
+	<Stagecraft_SpeakQueued>已安排{0}去找{1}说话。</Stagecraft_SpeakQueued>
+	<!-- 屏幕左上角的提示：等了两个钟头还没轮到。{0} 该开口的人。 -->
+	<Stagecraft_DirectDropped>{0}一直没能开口，这条导演指示作废了。</Stagecraft_DirectDropped>
+
+	<!-- ===== 五、交给模型的话（玩家看不到） ===== -->
+	<!-- 行动对象的身份，整个接在名字后面。{0} 是下面某一条。 -->
+	<Stagecraft_TagFormat>（{0}）</Stagecraft_TagFormat>
+	<Stagecraft_TagColonist>殖民者</Stagecraft_TagColonist>
+	<Stagecraft_TagSlave>奴隶</Stagecraft_TagSlave>
+	<Stagecraft_TagPrisoner>囚犯</Stagecraft_TagPrisoner>
+	<!-- 别家的人，不敌对：访客、商人、盟友的兵。 -->
+	<Stagecraft_TagGuest>访客</Stagecraft_TagGuest>
+	<Stagecraft_TagEnemy>敌人</Stagecraft_TagEnemy>
+	<!-- 不属于任何派系的人。 -->
+	<Stagecraft_TagStranger>流浪者</Stagecraft_TagStranger>
+	<!-- {0} 是动物的种类。没起名字的动物本来就按种类叫（“正在给牛挤奶”），不加。 -->
+	<Stagecraft_TagAnimal>动物，{0}</Stagecraft_TagAnimal>
+	<Stagecraft_TagMech>机械体</Stagecraft_TagMech>
+	<Stagecraft_TagInsect>虫族</Stagecraft_TagInsect>
+	<!-- 异象 DLC 的实体。 -->
+	<Stagecraft_TagEntity>实体</Stagecraft_TagEntity>
+	<!-- 状况补聊时交给 RimTalk 的话头。{0} 状况的名字，{1} 状况的说明，{2} 开始了多久（下面两条之一）。 -->
+	<Stagecraft_ConditionTalk>(说起{2}开始的{0}。说说各自的看法、担心或打算，不要把说明原样念一遍)\n[{1}]</Stagecraft_ConditionTalk>
+	<Stagecraft_AgoHours>{0}个钟头前</Stagecraft_AgoHours>
+	<Stagecraft_AgoDays>{0}天前</Stagecraft_AgoDays>
+	<!-- 设置里打开“在环境信息里列出眼下的状况”时，每条一行。{0} 名字，{1} 说明。 -->
+	<Stagecraft_ConditionLine>近日的状况（闲谈时偶尔提起即可）：{0}。{1}</Stagecraft_ConditionLine>
+	<!-- 接下任务时的话头。{0} 任务名，{1} 任务说明的开头。 -->
+	<Stagecraft_QuestAccepted>(刚接下一件事：{0}。说说打算、谁去、要备些什么或心里的顾虑，不要把内容原样念一遍)\n[{1}]</Stagecraft_QuestAccepted>
+	<!-- 所在地：整行是这一条，{0} 由下面几条拼成。 -->
+	<Stagecraft_Place>所在地：{0}</Stagecraft_Place>
+	<!-- 自家殖民地。{0} 地名，{1} 玩家派系名。 -->
+	<Stagecraft_PlaceHome>{0}——{1}的殖民地，殖民者们的家</Stagecraft_PlaceHome>
+	<!-- 装了 Empire 时，自家殖民地里有下属定居点的人在场，接在上一条后面。{0} 下属定居点的派系名，{1} 玩家派系名。 -->
+	<Stagecraft_PlaceHomeSubjects>；{0}来的人是{1}自己的领民，到这里不算外人</Stagecraft_PlaceHomeSubjects>
+	<!-- 装了 Empire 时，下属的定居点。{0} 地名，{1} 下属定居点的派系名，{2} 玩家派系名。 -->
+	<Stagecraft_PlaceSubject>{0}——{1}的定居点，归{2}管</Stagecraft_PlaceSubject>
+	<!-- 自家的别处（前哨、营地之类）。{0} 地名，{1} 玩家派系名，{2} 游戏里这类地方的叫法。 -->
+	<Stagecraft_PlaceOwn>{0}——{1}的{2}</Stagecraft_PlaceOwn>
+	<!-- 别家的定居点。{0} 地名，{1} 那一家的派系名，{2} 和我方的关系（下面三条之一）。 -->
+	<Stagecraft_PlaceSettlement>{0}——{1}的定居点，{2}</Stagecraft_PlaceSettlement>
+	<!-- {0} 是玩家派系名，下面两条同。 -->
+	<Stagecraft_PlaceStanceHostile>与{0}为敌</Stagecraft_PlaceStanceHostile>
+	<Stagecraft_PlaceStanceNeutral>与{0}没有交恶</Stagecraft_PlaceStanceNeutral>
+	<Stagecraft_PlaceStanceAlly>与{0}交好</Stagecraft_PlaceStanceAlly>
+	<!-- 其余的地方（任务地点、遗迹、野外营地等）先写它在游戏里的名字，再按情况接下面几条。这一条的 {0} 是这类地方的叫法。 -->
+	<Stagecraft_PlaceKind>（{0}）</Stagecraft_PlaceKind>
+	<!-- {0} 占着这地方的派系，{1} 和我方的关系。 -->
+	<Stagecraft_PlaceHeldBy>，{0}的人占着，{1}</Stagecraft_PlaceHeldBy>
+	<!-- {0} 任务名。 -->
+	<Stagecraft_PlaceQuest>，是任务“{0}”要来的地方</Stagecraft_PlaceQuest>
+	<!-- 任务和地方同名时用这一条。 -->
+	<Stagecraft_PlaceQuestSameName>，是为了任务来的地方</Stagecraft_PlaceQuestSameName>
+	<!-- 地图里套着的小地图（地洞之类）。{0} 小地图的叫法，{1} 外面那张地图的整句。 -->
+	<Stagecraft_PlacePocket>{0}，入口在{1}</Stagecraft_PlacePocket>
+	<!-- 接在最后：世界地图上这一片的地名。 -->
+	<Stagecraft_PlaceFeature>；位于{0}</Stagecraft_PlaceFeature>
+	<!-- 这一格地标的种类（湖、山谷、遗迹等）。 -->
+	<Stagecraft_PlaceLandmark>，这一带是{0}</Stagecraft_PlaceLandmark>
+	<!-- 导演指示交给模型的话，没指定对方时。{0} 指示，{1} 先开口的人。 -->
+	<Stagecraft_Direct>（导演指示，不是任何人说出口的话：{0}。照这条指示写出对话，由{1}先开口；指示里点到的人各自按指示说话和反应。不要回应这条指示，也不要把它原样念出来。）</Stagecraft_Direct>
+	<!-- 指定了对方时。{0} 指示，{1} 先开口的人，{2} 对方。 -->
+	<Stagecraft_DirectTo>（导演指示，不是任何人说出口的话：{1}主动向{2}开口。{0}。照这条指示写出两人的对话，由{1}先说；不要回应这条指示，也不要把它原样念出来。）</Stagecraft_DirectTo>
+	<!-- “让其开口”选了“AI 来写”时用的指示。 -->
+	<Stagecraft_SpeakFreeNote>按眼下的处境和两人的关系，自己找个话头</Stagecraft_SpeakFreeNote>
+
+</LanguageData>

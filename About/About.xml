@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>RimTalk - Stagecraft</name>
+	<author>Pyaoya</author>
+	<packageId>pyaoya.rimtalkstagecraft</packageId>
+	<modVersion>0.1.0</modVersion>
+	<supportedVersions>
+		<li>1.6</li>
+		<li>1.7</li>
+	</supportedVersions>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+		<li>
+			<packageId>cj.rimtalk</packageId>
+			<displayName>RimTalk</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/3551203752</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>brrainz.harmony</li>
+		<li>cj.rimtalk</li>
+		<li>cj.rimtalk.literature</li>
+		<li>cj.rimtalk.expandmemory</li>
+	</loadAfter>
+	<description>RimTalk 的附属模组：让小人知道自己在哪、手上的事是冲着谁去的，让持续几天的状况和刚接下的任务被聊起来，另外能用导演指示安排一场聊天。
+
+· 所在地：每次生成对话可以告诉模型这张地图是什么地方，包括自家殖民地、别家的定居点（带敌友关系）、任务地点、地下的小地图，以及世界地图上的地名。
+· 行动对象的身份：“正在治疗某某”的名字后面标出（殖民者）（囚犯）（访客）（动物，狗）（机械体），再也不会出现殖民者嘴里念叨把饭扔在地上让生病的殖民者吃了（以为对方是动物）。
+· 持续状况补聊：寒流、日蚀、毒尘这类持续几天的状况，期间会再被提起几次；来信那一次没人接的话也会补上。
+· 接任务就聊：接下任务的那一刻，找一个醒着的殖民者聊聊打算。
+· 导演指示：在 RimTalk 的“对某人说话”窗口里写 //艾米和鲍勃争论晚饭吃什么//，没有人会把它念出来，模型照着写出一段对话。
+· “让其开口”按钮：无法控制的访客、商人、囚犯也能按照玩家要求找人说话。
+· （联动）文学扩展的世界说明：在 RimTalk - Expand Literature 写书、写日记的提示词后面补上你这个档的世界观。
+
+每一项都能在模组设置里单独开关。纯逻辑模组，不改写存档，可以中途加入或删除。
+需要 Harmony 和 RimTalk，排在 RimTalk 之后加载。支持 1.6 和 1.7。
+
+
+An add-on for RimTalk: pawns know where they are and who the job in their hands is aimed at, conditions that last for days and newly taken quests get talked about, and you can set up a conversation with director's notes.
+
+- Location: every time a line is generated, the model can be told what this map is: your colony, another faction's settlement (and whether they are hostile), a quest site, a cave beneath, and the region on the world map.
+- Who the job is aimed at: "Tending to Mira" becomes "Tending to Mira (colonist)"; also prisoner, guest, (animal, dog), mechanoid. No more colonists chattering about dropping food on the floor for a sick colonist as if they were feeding an animal.
+- Lasting conditions: a cold snap, an eclipse or toxic fallout that lasts for days is brought up a few more times while it lasts, and the letter's own chance is made up for if nobody took it.
+- Quests: the moment you accept a quest, an awake colonist talks it over.
+- Director's notes: write //Amy and Bob argue about dinner// in RimTalk's "talk to" window. Nobody says it aloud; the model writes a conversation from it.
+- "Make speak" button: guests, traders and prisoners you cannot control can be made to talk to someone, as you ask.
+- (Integration) World description for RimTalk - Expand Literature: add your game's setting to the prompts it writes books and journals from.
+
+Every part can be turned off on its own in the mod settings. Pure logic: does not alter saves, and can be added or removed mid-game.
+Requires Harmony and RimTalk; load after RimTalk. Supports 1.6 and 1.7.</description>
+</ModMetaData>

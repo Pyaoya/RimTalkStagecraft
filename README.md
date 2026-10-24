@@ -2,6 +2,8 @@
 
 RimTalk 的附属模组（RimWorld 1.6、1.7）。功能和简介见 `游戏内文本.md` 第一、二节。MIT 协议，见 LICENSE。
 
+创意工坊：https://steamcommunity.com/sharedfiles/filedetails/?id=3826324825
+
 ## 目录
 
 ```

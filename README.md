@@ -35,7 +35,7 @@ powershell -File build.ps1 -NoInstall # 只编译
 
 ## 自测
 
-启动参数加 `-quicktest -stagecraftselftest`：进测试小地图以后，把找到的 RimTalk 部件、所在地那一行、对殖民者／囚犯／有名字的狗的行动描述、寒流的补聊次数、话头能不能进 RimTalk 的队列写进日志，每行以 `[RimTalk Stagecraft] self-test` 开头（`Source/SelfTest.cs`）。
+启动参数加 `-quicktest -stagecraftselftest`：进测试小地图以后，把找到的 RimTalk 部件、所在地那一行、对殖民者／囚犯／有名字的狗的行动描述、寒流的补聊次数、话头能不能进 RimTalk 的队列、课程名（要启用 Progression: Education）、袭击赢／惨胜／输的话头写进日志，每行以 `[RimTalk Stagecraft] self-test` 开头（`Source/SelfTest.cs`）。
 
 ## 说明
 

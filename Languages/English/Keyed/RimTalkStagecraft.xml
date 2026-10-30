@@ -17,10 +17,14 @@
 	<Stagecraft_SetConditionLinesTip>Lists the conditions in the environment part of every prompt. Pawns then mention them in passing very often (one condition came up seven times in two and a half days in testing), so this is off by default.</Stagecraft_SetConditionLinesTip>
 	<Stagecraft_SetQuestTalk>Talk a quest over as soon as it is accepted</Stagecraft_SetQuestTalk>
 	<Stagecraft_SetQuestTalkTip>When you accept a quest, an awake colonist is found at once to talk over the plan, who goes and what to bring. If nobody can take it, it keeps trying for half a day.</Stagecraft_SetQuestTalkTip>
+	<Stagecraft_SetRaidTalk>Talk a raid over once it has ended</Stagecraft_SetRaidTalk>
+	<Stagecraft_SetRaidTalkTip>Once a hostile faction's attackers on a home map (mods' raids included) are down or gone, an awake colonist is found to talk about the fight, trying for up to half a day. The model is told who won, how long it lasted and how fierce it was; what they say is up to it. Nothing is said if there was no contact or peace was made. It counts as lost if someone was carried off, loot was taken, raiders left after wrecking a large part of the base, half of those present died (at least two), or we lost people while no raider fell. Otherwise it counts as won, at a cost if someone died. Raiders who were driven off or who gave up count as beaten.</Stagecraft_SetRaidTalkTip>
 	<Stagecraft_SetNotes>Director's notes: //...//</Stagecraft_SetNotes>
 	<Stagecraft_SetNotesTip>In RimTalk's "talk to" window, text between two pairs of slashes is not said aloud by anyone: the model writes the whole conversation it describes, with the chosen pawn speaking first, for example //Amy and Bob argue about dinner, Bob gives in//. Turned off, such text is spoken as a line, the way RimTalk does it.</Stagecraft_SetNotesTip>
 	<Stagecraft_SetSpeak>"Make speak" button</Stagecraft_SetSpeak>
 	<Stagecraft_SetSpeakTip>Guests, traders and prisoners, who you cannot give orders to, get a button: pick someone for them to talk to, then let the AI write it or write their line or a director's note yourself. They must first be allowed to talk in RimTalk's settings.</Stagecraft_SetSpeakTip>
+	<Stagecraft_SetClassNames>Tell the model the class's name (Progression: Education)</Stagecraft_SetClassNames>
+	<Stagecraft_SetClassNamesTip>For the teacher and students of a class, "attending class" is followed by the name you gave it in Progression: Education. Of no use without that mod.</Stagecraft_SetClassNamesTip>
 	<Stagecraft_SetLiterature>World description for RimTalk Literature:</Stagecraft_SetLiterature>
 	<Stagecraft_SetLiteratureTip>When RimTalk Literature has the AI write books, journals or art descriptions, this text is added to the end of its prompts. Its prompts say nothing about the setting, and in a medieval game it wrote a diary full of patrol robots and satellite stations. A few lines about your game's era, what exists and what does not, are enough; left empty, nothing is added. Of no use without RimTalk Literature.</Stagecraft_SetLiteratureTip>
 
@@ -46,6 +50,32 @@
 	<Stagecraft_AgoDays>{0} day(s) ago</Stagecraft_AgoDays>
 	<Stagecraft_ConditionLine>Current condition (mention only in passing): {0}. {1}</Stagecraft_ConditionLine>
 	<Stagecraft_QuestAccepted>(Just taken on: {0}. Talk over the plan, who goes, what to prepare or any worries. Do not just read it out.)\n[{1}]</Stagecraft_QuestAccepted>
+
+	<!-- ===== How a raid ended (Source/Raids.cs) =====
+	     Only what happened: what to say about it is left to the model. {0} the raiders' faction, {1} the facts (the entries from RaidHours to RaidBaseWrecked), {2} in RaidLost why it was lost (the RaidWhy entries). -->
+	<Stagecraft_RaidWon>(A raid is over: {0} came, we won and nobody died)\n[{1}]</Stagecraft_RaidWon>
+	<Stagecraft_RaidCostly>(A raid is over: {0} came, we won, but not everyone lived)\n[{1}]</Stagecraft_RaidCostly>
+	<Stagecraft_RaidUndecided>(A raid is over: {0} came, there was fighting, and they left with nothing decided)\n[{1}]</Stagecraft_RaidUndecided>
+	<Stagecraft_RaidLost>(A raid is over: {0} came and we lost: {2})\n[{1}]</Stagecraft_RaidLost>
+	<Stagecraft_RaidHours>it lasted about {0} hours</Stagecraft_RaidHours>
+	<Stagecraft_RaidShort>it was over in less than an hour</Stagecraft_RaidShort>
+	<Stagecraft_RaidFierceLow>low intensity, almost one-sided</Stagecraft_RaidFierceLow>
+	<Stagecraft_RaidFierceMid>moderate intensity, a hard fight</Stagecraft_RaidFierceMid>
+	<Stagecraft_RaidFierceHigh>high intensity, a terrible fight</Stagecraft_RaidFierceHigh>
+	<Stagecraft_RaidFoes>{0} enemies, {1} down, {2} left alive</Stagecraft_RaidFoes>
+	<Stagecraft_RaidOurs>{0} of ours present, {1} hurt</Stagecraft_RaidOurs>
+	<Stagecraft_RaidOursDead>our dead: {0}</Stagecraft_RaidOursDead>
+	<Stagecraft_RaidOursFell>went down but lived: {0}</Stagecraft_RaidOursFell>
+	<Stagecraft_RaidBaseDamaged>the base took some damage</Stagecraft_RaidBaseDamaged>
+	<Stagecraft_RaidBaseWrecked>a large part of the base was wrecked</Stagecraft_RaidBaseWrecked>
+	<Stagecraft_RaidWhyTaken>{0} carried off</Stagecraft_RaidWhyTaken>
+	<Stagecraft_RaidWhyLooted>{0} stolen</Stagecraft_RaidWhyLooted>
+	<Stagecraft_RaidWhyWrecked>they left only after wrecking a large part of the base</Stagecraft_RaidWhyWrecked>
+	<Stagecraft_RaidWhyManyDead>half of those present died</Stagecraft_RaidWhyManyDead>
+	<Stagecraft_RaidWhyUnscathed>not one of them fell, and we lost people</Stagecraft_RaidWhyUnscathed>
+
+	<!-- ===== Progression: Education (Source/Education.cs): goes right after "attending class". {0} the name the player gave the class. ===== -->
+	<Stagecraft_ClassName> (class: {0})</Stagecraft_ClassName>
 
 	<!-- ===== Location (Source/Place.cs) ===== -->
 	<Stagecraft_Place>Location: {0}</Stagecraft_Place>

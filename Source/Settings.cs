@@ -14,8 +14,10 @@ namespace RimTalkStagecraft
         public string conditionSkip = "";
         public bool conditionLines;
         public bool questTalk = true;
+        public bool raidTalk = true;
         public bool notes = true;
         public bool speakButton = true;
+        public bool classNames = true;
         public string literatureWorld = "";
 
         public override void ExposeData()
@@ -27,8 +29,10 @@ namespace RimTalkStagecraft
             Scribe_Values.Look(ref conditionSkip, "conditionSkip", "");
             Scribe_Values.Look(ref conditionLines, "conditionLines", false);
             Scribe_Values.Look(ref questTalk, "questTalk", true);
+            Scribe_Values.Look(ref raidTalk, "raidTalk", true);
             Scribe_Values.Look(ref notes, "notes", true);
             Scribe_Values.Look(ref speakButton, "speakButton", true);
+            Scribe_Values.Look(ref classNames, "classNames", true);
             Scribe_Values.Look(ref literatureWorld, "literatureWorld", "");
         }
 
@@ -69,11 +73,13 @@ namespace RimTalkStagecraft
             l.CheckboxLabeled(Tr("Stagecraft_SetConditionLines"), ref conditionLines, Tr("Stagecraft_SetConditionLinesTip"));
             l.GapLine();
             l.CheckboxLabeled(Tr("Stagecraft_SetQuestTalk"), ref questTalk, Tr("Stagecraft_SetQuestTalkTip"));
+            l.CheckboxLabeled(Tr("Stagecraft_SetRaidTalk"), ref raidTalk, Tr("Stagecraft_SetRaidTalkTip"));
 
             l.NewColumn();
             l.CheckboxLabeled(Tr("Stagecraft_SetNotes"), ref notes, Tr("Stagecraft_SetNotesTip"));
             l.CheckboxLabeled(Tr("Stagecraft_SetSpeak"), ref speakButton, Tr("Stagecraft_SetSpeakTip"));
             l.GapLine();
+            l.CheckboxLabeled(Tr("Stagecraft_SetClassNames"), ref classNames, Tr("Stagecraft_SetClassNamesTip"));
             l.Label("Stagecraft_SetLiterature".Translate(), -1f, Tr("Stagecraft_SetLiteratureTip"));
             literatureWorld = l.TextEntry(literatureWorld ?? "", 8);
             l.End();

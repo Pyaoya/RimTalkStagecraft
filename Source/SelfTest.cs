@@ -5,14 +5,16 @@ using System.Reflection;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 
 namespace RimTalkStagecraft
 {
     // A self-test, for development. Start the game with -quicktest -stagecraftselftest: once the
     // map is up it writes into the log what each part found of RimTalk, the location line for the
     // map (generated, then with a description of the player's, then generated again), a colonist's activity aimed at a colonist, a prisoner and a named dog (as RimTalk gives
-    // it, with and without its context optimization), how often a cold snap is to be talked about
-    // and whether a topic reaches RimTalk's pool. Every line starts with "[RimTalk Stagecraft]
+    // it, with and without its context optimization), how often a cold snap is to be talked about,
+    // whether a topic reaches RimTalk's pool, a class's name in an activity (with Progression:
+    // Education) and the topics of a raid won, won at a cost and lost. Every line starts with "[RimTalk Stagecraft]
     // self-test". Without the switch nothing here runs.
     internal static class SelfTest
     {
@@ -76,6 +78,102 @@ namespace RimTalkStagecraft
             Log.Message(T + "a half-day eclipse is talked about " + News.WantedFor(eclipse) + " time(s)");
 
             Log.Message(T + "a topic put into RimTalk's pool is waiting there: " + News.TryTopic("(self-test topic)", map));
+
+            ClassName(map, a);
+            Raid(map, people);
+        }
+
+        // With Progression: Education in the mod list: a pawn in a class is reported with its name.
+        private static void ClassName(Map map, Pawn pawn)
+        {
+            Type job = GenTypes.GetTypeInAnyAssembly("ProgressionEducation.LordJob_AttendClass");
+            Type group = GenTypes.GetTypeInAnyAssembly("ProgressionEducation.StudyGroup");
+            if (job == null || group == null) { Log.Message(T + "class name: Progression: Education is not in the mod list"); return; }
+            object study = Activator.CreateInstance(group, pawn, new List<Pawn>(), "self-test class", 1, 0, 1);
+            Lord lord = LordMaker.MakeNewLord(Faction.OfPlayer, (LordJob)Activator.CreateInstance(job, study), map, new[] { pawn });
+            MethodInfo activity = GenTypes.GetTypeInAnyAssembly("RimTalk.Util.PawnUtil").GetMethod("GetActivity",
+                BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(Pawn) }, null);
+            Log.Message(T + "class name, activity in a class: " + activity.Invoke(null, new object[] { pawn }));
+            map.lordManager.RemoveLord(lord);
+        }
+
+        // Raids of two, decided by hand, with Check() called directly as a play check would and the
+        // clock moved on by hand. A raid is told the same however it came: under the game's own lord
+        // job, a mod's own, or none. No contact and guards who stay put are not told at all.
+        private static void Raid(Map map, List<Pawn> people)
+        {
+            Faction foes = Find.FactionManager.RandomEnemyFaction(false, false, false);
+            if (foes == null || people.Count < 3) { Log.Message(T + "raid: needs an enemy faction and three colonists"); return; }
+            IntVec3 near = people[2].Position;
+            int now = Find.TickManager.TicksGame;
+
+            Fight(map, foes, near, new LordJob_AssaultColony(foes), "won under the game's lord job", ref now, null);
+            Fight(map, foes, near, new ModsOwnRaid(), "won under a mod's lord job", ref now, null);
+            Fight(map, foes, near, null, "won with no lord at all", ref now, null);
+            Fight(map, foes, near, new LordJob_AssaultColony(foes), "won at a cost", ref now, r => people[0].Kill(null));
+            Fight(map, foes, near, new LordJob_AssaultColony(foes), "lost, one carried off", ref now, r => foes.kidnapped.Kidnap(people[1], r[0]));
+
+            // A second wave within the hour is the same fight.
+            List<Pawn> first = Wave(map, foes, near, new LordJob_AssaultColony(foes));
+            Raids.LastTopic = null;
+            Raids.Check(now);
+            foreach (Pawn p in first) p.Kill(null);
+            Raids.Check(now += 2000);
+            List<Pawn> second = Wave(map, foes, near, null);
+            Raids.Check(now += 2000);
+            Log.Message(T + "raid, second wave within the hour, no topic yet: " + (Raids.LastTopic == null));
+            foreach (Pawn p in second) p.Kill(null);
+            Raids.Check(now += Raids.SettleTicks);
+            Log.Message(T + "raid, both waves told as one: " + (Raids.LastTopic ?? "(none)"));
+
+            // They came and went without a fight.
+            List<Pawn> passing = Wave(map, foes, near, null);
+            Raids.LastTopic = null;
+            Raids.Check(now);
+            foreach (Pawn p in passing) p.ExitMap(false, Rot4.North);
+            Raids.Check(now += Raids.SettleTicks);
+            Log.Message(T + "raid, no contact, nothing told: " + (Raids.LastTopic == null));
+
+            // Guards who stay where they are do not count as a raid at all.
+            List<Pawn> guards = Wave(map, foes, near, new LordJob_DefendPoint(near));
+            Raids.Check(now);
+            Log.Message(T + "raid, guards staying put not watched: " + !Raids.Watching(map));
+            foreach (Pawn p in guards) p.Destroy();
+        }
+
+        private static void Fight(Map map, Faction foes, IntVec3 near, LordJob job, string what, ref int now, Action<List<Pawn>> during)
+        {
+            List<Pawn> raiders = Wave(map, foes, near, job);
+            Raids.LastTopic = null;
+            Raids.Check(now);
+            bool watched = Raids.Watching(map);
+            if (during != null) during(raiders);
+            foreach (Pawn p in raiders) p.Kill(null);
+            Raids.Check(now += Raids.SettleTicks);
+            Log.Message(T + "raid " + what + ", watched: " + watched + "; topic: " + (Raids.LastTopic ?? "(none)"));
+        }
+
+        private static List<Pawn> Wave(Map map, Faction foes, IntVec3 near, LordJob job)
+        {
+            List<Pawn> raiders = new List<Pawn>();
+            for (int i = 0; i < 2; i++)
+            {
+                Pawn p = PawnGenerator.GeneratePawn(PawnKindDefOf.Villager, foes);
+                GenSpawn.Spawn(p, CellFinder.StandableCellNear(near, map, 8f), map);
+                raiders.Add(p);
+            }
+            if (job != null) LordMaker.MakeNewLord(foes, job, map, raiders);
+            return raiders;
+        }
+
+        private class ModsOwnRaid : LordJob
+        {
+            public override StateGraph CreateGraph()
+            {
+                StateGraph graph = new StateGraph();
+                graph.AddToil(new LordToil_AssaultColony());
+                return graph;
+            }
         }
     }
 }

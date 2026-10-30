@@ -2,8 +2,8 @@ An add-on for RimTalk: pawns know where they are and who their job is aimed at, 
 
 - Location: tells the model what this place is; you can write your own
 - Job targets tagged: (colonist), (prisoner), (animal)
-- Lasting conditions and accepted quests talked about
+- Lasting conditions, accepted quests and the end of a raid talked about
 - Director's notes //...// and a "Make speak" button
-- (Integration) world description for RimTalk - Expand Literature
+- (Integration) world description for RimTalk - Expand Literature, class names from Progression: Education
 
 Each part can be switched off in the settings. Does not alter saves. Requires Harmony and RimTalk; 1.6 and 1.7.

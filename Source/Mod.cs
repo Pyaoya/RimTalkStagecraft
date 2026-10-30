@@ -7,8 +7,9 @@ namespace RimTalkStagecraft
 {
     // A few things RimTalk's pawns are told, or can be made to do, on top of RimTalk itself:
     // where they are (Place), who the people their jobs are aimed at are (Targets), conditions
-    // that last for days and quests just taken (News), director's notes and a speak button for
-    // pawns the player cannot order about (Director), a world brief for RimTalk Literature's
+    // that last for days and quests just taken (News), how a raid ended (Raids), director's notes
+    // and a speak button for pawns the player cannot order about (Director), the name of the class
+    // a pawn is in with Progression: Education (Education), a world brief for RimTalk Literature's
     // writing (Literature), and a quiet repair to RimTalk Log To File (LogToFileFix). RimTalk is
     // reached by name throughout: when an update renames what one part uses, that part is left
     // out with a line in the log and the rest go on.
@@ -52,6 +53,8 @@ namespace RimTalkStagecraft
             News.NewGame();
             Director.Register(StagecraftMod.Patcher);
             Director.NewGame();
+            Raids.NewGame();
+            Education.Register(StagecraftMod.Patcher);
             SelfTest.Run();   // only with -stagecraftselftest on the command line
         }
     }
@@ -73,6 +76,7 @@ namespace RimTalkStagecraft
                 last = now;
                 if (now < next) return;
                 next = now + Interval;
+                Raids.Check(now);
                 News.Follow(now);
                 Director.Tick(now);
             }

@@ -107,6 +107,13 @@ namespace RimTalkStagecraft
             IntVec3 near = people[2].Position;
             int now = Find.TickManager.TicksGame;
 
+            // How fierce goes by what it did to us, not by how many came or how long they stayed.
+            Fight(map, foes, near, null, "of forty, nobody touched, should be low", ref now, null, 40);
+            Fight(map, foes, near, null, "with everybody grazed, should be low", ref now, r => Bruise(people, 3f));
+            Fight(map, foes, near, null, "for hours, nobody touched, should be low", ref now, null, 2, 3 * 2500);
+            Fight(map, foes, near, null, "for hours, somebody grazed, should be mid", ref now, r => Bruise(people.GetRange(0, 1), 3f), 2, 3 * 2500);
+            Fight(map, foes, near, null, "with everybody badly hurt, should be mid", ref now, r => Bruise(people, 16f));
+
             Fight(map, foes, near, new LordJob_AssaultColony(foes), "won under the game's lord job", ref now, null);
             Fight(map, foes, near, new ModsOwnRaid(), "won under a mod's lord job", ref now, null);
             Fight(map, foes, near, null, "won with no lord at all", ref now, null);
@@ -141,22 +148,42 @@ namespace RimTalkStagecraft
             foreach (Pawn p in guards) p.Destroy();
         }
 
-        private static void Fight(Map map, Faction foes, IntVec3 near, LordJob job, string what, ref int now, Action<List<Pawn>> during)
+        private static void Bruise(List<Pawn> who, float severity)
         {
-            List<Pawn> raiders = Wave(map, foes, near, job);
+            foreach (Pawn p in who)
+            {
+                Hediff bruise = HediffMaker.MakeHediff(HediffDef.Named("Bruise"), p, p.RaceProps.body.corePart);
+                bruise.Severity = severity;
+                p.health.AddHediff(bruise);
+            }
+        }
+
+        // With dragsOn, the first raider falls at once and the others that much later.
+        private static void Fight(Map map, Faction foes, IntVec3 near, LordJob job, string what, ref int now, Action<List<Pawn>> during, int count = 2, int dragsOn = 0)
+        {
+            List<Pawn> raiders = Wave(map, foes, near, job, count);
             Raids.LastTopic = null;
             Raids.Check(now);
             bool watched = Raids.Watching(map);
             if (during != null) during(raiders);
-            foreach (Pawn p in raiders) p.Kill(null);
+            if (dragsOn > 0)
+            {
+                raiders[0].Kill(null);
+                Raids.Check(now += 250);
+                Raids.Check(now += dragsOn);
+            }
+            foreach (Pawn p in raiders) if (!p.Dead) p.Kill(null);
             Raids.Check(now += Raids.SettleTicks);
             Log.Message(T + "raid " + what + ", watched: " + watched + "; topic: " + (Raids.LastTopic ?? "(none)"));
+            foreach (Pawn p in map.mapPawns.FreeColonistsSpawned)   // what one raid did must not decide the next
+                foreach (Hediff h in new List<Hediff>(p.health.hediffSet.hediffs))
+                    if (h.def.defName == "Bruise") p.health.RemoveHediff(h);
         }
 
-        private static List<Pawn> Wave(Map map, Faction foes, IntVec3 near, LordJob job)
+        private static List<Pawn> Wave(Map map, Faction foes, IntVec3 near, LordJob job, int count = 2)
         {
             List<Pawn> raiders = new List<Pawn>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < count; i++)
             {
                 Pawn p = PawnGenerator.GeneratePawn(PawnKindDefOf.Villager, foes);
                 GenSpawn.Spawn(p, CellFinder.StandableCellNear(near, map, 8f), map);

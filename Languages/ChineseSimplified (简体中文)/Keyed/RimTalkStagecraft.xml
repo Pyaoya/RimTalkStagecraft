@@ -89,13 +89,13 @@
 	<Stagecraft_RaidUndecided>(袭击结束了：{0}打来，交了手，没分出胜负他们就走了)\n[{1}]</Stagecraft_RaidUndecided>
 	<!-- 打输了。{0}、{1} 同上，{2} 输在哪（下面 RaidWhy 几条拼成）。 -->
 	<Stagecraft_RaidLost>(袭击结束了：{0}打来，我们输了：{2})\n[{1}]</Stagecraft_RaidLost>
-	<!-- 战况第一项：持续时间。{0} 钟头数。 -->
+	<!-- 战况第一项：持续时间，从第一次有人受损到最后一次（不算对方走过来、集结的时间）。{0} 钟头数。 -->
 	<Stagecraft_RaidHours>持续了约{0}个钟头</Stagecraft_RaidHours>
 	<!-- 不到一个钟头时用这条。 -->
 	<Stagecraft_RaidShort>不到一个钟头就结束了</Stagecraft_RaidShort>
-	<!-- 战况第二项：烈度，三条之一。这条：没人倒下，受伤的不到一半，敌人比我方少，基地没什么损坏。 -->
+	<!-- 战况第二项：烈度，三条之一，看这场袭击对我方造成了什么，不看来了多少人（人数在后面照实写）。这条：没人倒下，重伤的不到一半，基地没什么损坏，也没有打上两个钟头还付出代价。 -->
 	<Stagecraft_RaidFierceLow>烈度低，几乎一边倒</Stagecraft_RaidFierceLow>
-	<!-- 有人倒下，或一半人受伤，或敌人不比我方少，或基地有明显损坏。 -->
+	<!-- 有人倒下，或一半人重伤（掉了两成血以上，擦伤不算），或基地有明显损坏，或打了两个钟头以上且有人受伤或基地受损。 -->
 	<Stagecraft_RaidFierceMid>烈度中等，打得不轻松</Stagecraft_RaidFierceMid>
 	<!-- 有人阵亡或被抓走，或一半人倒下，或基地被毁了一大片。 -->
 	<Stagecraft_RaidFierceHigh>烈度很高，打得很惨</Stagecraft_RaidFierceHigh>

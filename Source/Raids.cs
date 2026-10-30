@@ -24,9 +24,14 @@ namespace RimTalkStagecraft
     // and they were half of those present, or colonists died and not one raider fell. Otherwise it
     // was won, at a cost if somebody died; if no raider fell either, it is told as undecided.
     //
-    // How fierce: very, if someone died or was carried off, half of those present went down, or
-    // the base was wrecked. Hard, if anyone went down, half were hurt, the raiders were as many as
-    // the colonists, or the base was visibly damaged. Otherwise one-sided.
+    // How fierce is what the raid did to the colony, not how many came: three colonists with a mod's
+    // weapons may mow down hundreds and not feel it, and the head count is told anyway. Very, if
+    // someone died or was carried off, half of those present went down, or the base was wrecked.
+    // Hard, if anyone went down, half were badly hurt, the base was visibly damaged, or the fighting
+    // went on for hours and cost something. Otherwise one-sided.
+    //
+    // The length told is of the fighting, from the first harm on either side to the last: raiders
+    // may walk or wait for hours and then die in seconds.
     //
     // Nothing is saved: a raid under way when a game is loaded is picked up again, and losses from
     // before the save are not known.
@@ -39,20 +44,24 @@ namespace RimTalkStagecraft
         private const float WreckedAtLeast = 900f;   // and at least this much
         private const float DamagedFraction = 0.2f;  // of that: enough to be seen and talked about
         private const float HurtBy = 0.01f;          // of a colonist's health lost, against rounding
+        private const float BadlyBy = 0.2f;          // of it: a solid hit or more, not a graze
+        private const int LongFight = 5000;          // two hours of it
 
         private static readonly string[] NotAttacking =
             { "Defend", "Visit", "Trade", "PrisonBreak", "Rebellion", "Sleep", "SitePawns", "Nest", "Hive", "ManTurrets", "Structure" };
 
         private class Battle
         {
-            public int began, lastSeen, colonyHealth;
-            public float damageBefore;
+            public int firstContact = -1, lastContact, lastSeen, colonyHealth;
+            public float damageBefore, harm;
             public readonly HashSet<Faction> factions = new HashSet<Faction>();
             public readonly HashSet<Pawn> enemies = new HashSet<Pawn>();
             public readonly HashSet<Pawn> ours = new HashSet<Pawn>();
             public readonly Dictionary<Pawn, string> stealing = new Dictionary<Pawn, string>();
             public readonly Dictionary<Pawn, float> healthBefore = new Dictionary<Pawn, float>();
+            public readonly HashSet<Pawn> downBefore = new HashSet<Pawn>();
             public readonly HashSet<Pawn> hurt = new HashSet<Pawn>();
+            public readonly HashSet<Pawn> badly = new HashSet<Pawn>();
             public readonly HashSet<Pawn> fell = new HashSet<Pawn>();
         }
 
@@ -97,11 +106,8 @@ namespace RimTalkStagecraft
                 if (p == null || !IsAttacker(p, target)) continue;
                 if (b == null)
                 {
-                    // After a load, the time in its lord's present toil is the best that is known of the start.
-                    Lord lord = p.GetLord();
                     b = new Battle
                     {
-                        began = now - (lord != null ? lord.ticksInToil : 0),
                         damageBefore = map.damageWatcher.DamageTakenEver,
                         colonyHealth = map.wealthWatcher.HealthTotal
                     };
@@ -119,6 +125,7 @@ namespace RimTalkStagecraft
             if (b == null) return;
             List<Pawn> people = map.mapPawns.FreeColonistsSpawned;
             for (int i = 0; i < people.Count; i++) Follow(b, people[i]);
+            NoteContact(b, map, now);
             if (now - b.lastSeen < SettleTicks) return;
             battles.Remove(map);
             string topic = Topic(b, map);
@@ -144,9 +151,31 @@ namespace RimTalkStagecraft
         {
             b.ours.Add(p);
             float health = p.health.summaryHealth.SummaryHealthPercent, before;
-            if (!b.healthBefore.TryGetValue(p, out before)) b.healthBefore[p] = health;
-            else if (health < before - HurtBy) b.hurt.Add(p);
-            if (p.Downed) b.fell.Add(p);
+            if (!b.healthBefore.TryGetValue(p, out before))
+            {
+                b.healthBefore[p] = health;
+                if (p.Downed) b.downBefore.Add(p);   // already in bed with something else
+                return;
+            }
+            if (health < before - HurtBy) b.hurt.Add(p);
+            if (health < before - BadlyBy) b.badly.Add(p);
+            if (p.Downed && !b.downBefore.Contains(p)) b.fell.Add(p);
+        }
+
+        private static void NoteContact(Battle b, Map map, int now)
+        {
+            float harm = b.hurt.Count + b.fell.Count + b.enemies.Count(Fallen)
+                + b.ours.Count(p => p.Dead || PawnUtility.IsKidnappedPawn(p))
+                + map.damageWatcher.DamageTakenEver - b.damageBefore;
+            if (harm == b.harm) return;
+            b.harm = harm;
+            if (b.firstContact < 0) b.firstContact = now;
+            b.lastContact = now;
+        }
+
+        private static bool Fallen(Pawn p)
+        {
+            return p.Dead || p.Downed || p.IsPrisonerOfColony;
         }
 
         // The wording is in the Keyed file. Null: nothing that can be told without being wrong.
@@ -160,7 +189,7 @@ namespace RimTalkStagecraft
             List<string> loot = new List<string>();
             foreach (Pawn p in b.enemies)
             {
-                if (p.Dead || p.Downed || p.IsPrisonerOfColony) { down++; continue; }
+                if (Fallen(p)) { down++; continue; }
                 if (p.Spawned || p.Destroyed) continue;   // changed sides, gone mad, or a summons that ran out
                 away++;
                 string what;
@@ -173,7 +202,6 @@ namespace RimTalkStagecraft
             {
                 if (p.Dead) { dead.Add(p.LabelShort); continue; }
                 if (PawnUtility.IsKidnappedPawn(p)) { taken.Add(p.LabelShort); continue; }
-                if (p.Downed) b.fell.Add(p);
                 if (b.fell.Contains(p)) fell.Add(p.LabelShort);
                 if (b.hurt.Contains(p) || b.fell.Contains(p)) hurt++;
             }
@@ -190,10 +218,12 @@ namespace RimTalkStagecraft
             if (dead.Count >= ManyDead && dead.Count * 2 >= b.ours.Count) why.Add("Stagecraft_RaidWhyManyDead".Translate().ToString());
             if (down == 0 && dead.Count > 0) why.Add("Stagecraft_RaidWhyUnscathed".Translate().ToString());
 
+            int fought = Math.Min(b.lastContact, b.lastSeen) - b.firstContact;   // harm after the last raider was seen is a fire, or bleeding
+            bool wornDown = fought >= LongFight && (hurt > 0 || damage > 0f);
             string fierce = dead.Count > 0 || taken.Count > 0 || wrecked || fell.Count * 2 >= b.ours.Count ? "Stagecraft_RaidFierceHigh"
-                : fell.Count > 0 || hurt * 2 >= b.ours.Count || b.enemies.Count >= b.ours.Count || damaged ? "Stagecraft_RaidFierceMid"
+                : fell.Count > 0 || b.badly.Count * 2 >= b.ours.Count || damaged || wornDown ? "Stagecraft_RaidFierceMid"
                 : "Stagecraft_RaidFierceLow";
-            int hours = (b.lastSeen - b.began) / 2500;
+            int hours = fought / 2500;
             List<string> facts = new List<string>
             {
                 hours > 0 ? "Stagecraft_RaidHours".Translate(hours).ToString() : "Stagecraft_RaidShort".Translate().ToString(),
